@@ -7,13 +7,13 @@ def cache(func: Callable) -> Callable:
     cache_store = {}
 
     @wraps(func)
-    def wrapper(*args):
-        key = args
+    def wrapper(*args, **kwargs):
+        key = args, kwargs
         if key in cache_store:
             print("Getting from cache")
             return cache_store[key]
         print("Calculating new result")
-        result = func(*args)
+        result = func(*args, **kwargs)
         cache_store[key] = result
         return result
 
