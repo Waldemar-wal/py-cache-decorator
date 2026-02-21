@@ -1,5 +1,5 @@
 from functools import wraps
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
@@ -7,7 +7,7 @@ def cache(func: Callable) -> Callable:
     cache_store = {}
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> Any:
         key = (args, frozenset(kwargs.items()))
         if key in cache_store:
             print("Getting from cache")
